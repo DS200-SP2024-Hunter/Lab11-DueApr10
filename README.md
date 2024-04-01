@@ -8,7 +8,7 @@ The main objective of today's lab is to use Bayes Theorem and some simplifying a
 
 **Objective**:  Use the `wine` dataset from [Section 17.4](https://inferentialthinking.com/chapters/17/4/Implementing_the_Classifier.html) to train a naive Bayes classifier to predict the type of wine from quantitative measurements.  We'll make two simplifying assumptions:  conditional independence of features and the quantitative variables are all normally distributed.  
 
-The basic idea of a naive Bayes classifier is described in [this document](https://github.com/DS200-SP2022-Hunter/Week12-Apr05/blob/main/NaiveBayes.pdf).
+The basic idea of a naive Bayes classifier is described in [this document](https://github.com/DS200-SP2024-Hunter/Lab11-DueApr10/blob/main/NaiveBayes.pdf).
 
 **Your assignment** is as follows:
 
@@ -16,13 +16,13 @@ The basic idea of a naive Bayes classifier is described in [this document](https
 
 2. As in Section 17.4.3, read the dataset from the `wine.csv` file as a `Table` object and give it the name `wine`.  Do NOT convert this dataset to a new one with only two classes of wine.  We will keep all three classes for this assignment.
 
-3. As you will see from the [naive Bayes classifier document](https://github.com/DS200-SP2022-Hunter/Week12-Apr05/blob/main/NaiveBayes.pdf), you'll need the means and standard deviations of the quantitative variables for each wine class.  You can get them using the `group` method, which allows for an optional function to be used on the values in each group:
+3. As you will see from the [naive Bayes classifier document](https://github.com/DS200-SP2024-Hunter/Lab11-DueApr10/blob/main/NaiveBayes.pdf), you'll need the means and standard deviations of the quantitative variables for each wine class.  You can get them using the `group` method, which allows for an optional function to be used on the values in each group:
 ```
 wineMeans = wine.group("Class", np.mean)
 wineSDs = wine.group("Class", np.std)
 ```
 
-4. You'll also notice from the [naive Bayes classifier document](https://github.com/DS200-SP2022-Hunter/Week12-Apr05/blob/main/NaiveBayes.pdf) that you'll need prior probabilities of the three wine categories.  For this purpose, instead of assuming that each class is equally probable a priori, let us suppose that our sample of wines is representative of the population we care about, so that the prior probabilities may be taken to be the overall proportions of the three classes.  We can calculate these proportions by using the `group` method to count how many are in each class:
+4. You'll also notice from the [naive Bayes classifier document](https://github.com/DS200-SP2024-Hunter/Lab11-DueApr10/blob/main/NaiveBayes.pdf) that you'll need prior probabilities of the three wine categories.  For this purpose, instead of assuming that each class is equally probable a priori, let us suppose that our sample of wines is representative of the population we care about, so that the prior probabilities may be taken to be the overall proportions of the three classes.  We can calculate these proportions by using the `group` method to count how many are in each class:
 ```
 prior = wine.group("Class").column('count') / wine.num_rows
 prior
@@ -43,7 +43,7 @@ def prob(r, variable):
   return stats.norm.pdf(X, means, SDs) # This is an array with 3 elements
 ```
  
-7.  Let us now focus on the variables `Ash` and `Alcohol`.  Suppose we want to predict the class of the wine in row 0.  We need to combine the three probabilities found by the `prob` function we just defined (three for each of `Ash` and `Alcohol`) together with the prior probabilities to obtain the three terms in the denominator of Bayes' Theorem in the [naive Bayes classifier document](https://github.com/DS200-SP2022-Hunter/Week12-Apr05/blob/main/NaiveBayes.pdf):
+7.  Let us now focus on the variables `Ash` and `Alcohol`.  Suppose we want to predict the class of the wine in row 0.  We need to combine the three probabilities found by the `prob` function we just defined (three for each of `Ash` and `Alcohol`) together with the prior probabilities to obtain the three terms in the denominator of Bayes' Theorem in the [naive Bayes classifier document](https://github.com/DS200-SP2024-Hunter/Lab11-DueApr10/blob/main/NaiveBayes.pdf):
 ```
 prob(0, 'Ash') * prob(0, 'Alcohol') * prior
 ```
